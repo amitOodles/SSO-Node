@@ -1,5 +1,7 @@
 app.controller("TTRController",['$scope','$timeout','AgeCalculator','TaxRateCalculator','SGCRate','WithoutSSCalculator','WithSSCalculator','ChartServiceHc','DonutChartServiceHc','PdfMaker',function($scope,$timeout,AgeCalculator,TaxRateCalculator,SGCRate,WithoutSSCalculator,WithSSCalculator,ChartServiceHc,DonutChartServiceHc,PdfMaker){
   
+// console.log("cont",ids1);
+
     String.prototype.replaceAll = function(search, replacement) {
         var target = this;
         return target.split(search).join(replacement);
@@ -405,6 +407,8 @@ app.controller("TTRController",['$scope','$timeout','AgeCalculator','TaxRateCalc
       } 
       PdfMaker.createChart($scope.dob,$scope.age,$scope.fy,$scope.cses,$scope.thp,$scope.resultWithoutSS,$scope.resultWithSS,$scope.needSS,$scope.optimisedSS,toggleNeeded);
     });
+
+
 
 
 }]);
