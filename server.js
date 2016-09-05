@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public/')));
 
 // viewed at http://localhost:8080
-app.get('/img', function(req, res) {
+app.get('/query', function(req, res) {
 	var age = req.query.age;
 	var cses = req.query.cses;
 	var thp = req.query.thp;
