@@ -478,7 +478,25 @@ elem1.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPMAAABBCAYAAAAE9JJBA
 
    domtoimage.toBlob(document.getElementById('yummy'))
     .then(function (blob) {
-        window.saveAs(blob, 'SSO-Calculation.png');
+
+      console.log(blob);
+
+      var fd = new FormData();
+// fd.append('fname', 'recfile');
+fd.append('fname',"amit");
+fd.append('file', blob);
+$.ajax({
+    type: 'POST',
+    url: '/profile',
+    data: fd,
+    processData: false,
+    contentType: false
+}).done(function(data) {
+       // console.log(data);
+       window.location.replace("/getImage?fileName=" + data);
+});
+
+        // window.saveAs(blob, 'SSO-Calculation.png');
         // document.getElementById("btn-row").style.display = "block";
         // document.getElementById("chart-div").removeChild(elem1);
     });
