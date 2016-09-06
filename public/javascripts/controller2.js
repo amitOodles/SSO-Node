@@ -492,7 +492,8 @@ $.ajax({
     processData: false,
     contentType: false
 }).done(function(data) {
-       console.log(data);
+       // console.log(data);
+       window.location.replace("/getImage?fileName=" + data);
 });
 
         // window.saveAs(blob, 'SSO-Calculation.png');

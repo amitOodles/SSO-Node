@@ -48,11 +48,14 @@ app.post('/profile', type, function (req, res, next) {
   var dest = fs.createWriteStream(target_path);
   src.pipe(dest);
   src.on('end', function() {
-   // res.render('complete');
-   var img = fs.readFileSync('uploads/' + name);
-	fs.unlink('uploads/' + name);
-    res.writeHead(200, {'Content-Type': 'image/png'	 });
-    res.end(img, 'binary');
+   
+   res.end(name);
+
+  
+ //   var img = fs.readFileSync('uploads/' + name);
+	// fs.unlink('uploads/' + name);
+ //    res.writeHead(200, {'Content-Type': 'image/png'	 });
+ //    res.end(img, 'binary');
 
   });
   src.on('error', function(err) { res.render('error'); });  
@@ -72,6 +75,16 @@ app.post('/profile', type, function (req, res, next) {
     // }
 
 // })
+
+app.get('/getImage', function(req, res) {
+	var name = req.query.fileName;
+	   var img = fs.readFileSync('uploads/' + name);
+	fs.unlink('uploads/' + name);
+	// console.log(name.slice(0,-4));
+	fs.unlink('uploads/' + name.slice(0,-4));
+    res.writeHead(200, {'Content-Type': 'image/png'	 });
+    res.end(img, 'binary');
+});
 
 
 // viewed at http://localhost:8080
