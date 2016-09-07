@@ -39,6 +39,7 @@ app.service('ChartServiceHc',function(){
         plotOptions: {
             series: {
                 borderWidth: 0,
+                animation:false,
                 // dataLabels: {
                 //     enabled: true,
                 //     format: '{point.y:.1f}%'
