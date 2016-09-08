@@ -18,7 +18,7 @@
    </head>
    <body print-section ng-cloak>
       <div class="otrp-calculator container-fluid " ng-controller="TTRController" >
-         <div class=" row title " >
+         <div class=" row title " style="display:none;" >
             <div class="col-xs-8 col-sm-9 col-lg-9">
                <h1>Salary Sacrifice Optimisation</h1>
                
@@ -129,7 +129,7 @@
                      </form>
                   </div>
                </div>
-               <div class="row result-head">
+               <div class="row result-head" style="display:none;">
                   <h3 class="results-title">Your Results</h3>
                </div>
                <div id="yummy" class="row result-div">
@@ -148,6 +148,11 @@
                 <div id="container" ng-show="chartOneOpen"  style="margin:0 auto;width: 327px; height: 365px;" ng-class="{largeWidth: needSS}"></div>
                 <div id="donutContainer" ng-hide="chartOneOpen"  style="margin:0 auto;width: 327px; height: 365px; " ng-class="{largeWidth: needSS}"></div>
                 </div>
+                </div>
+                <div class="row">
+                <div class="col-xs-12">
+                     <img src="images/client-logo.png" class="comp-logo"/>
+                  </div>
                 </div>
                 </div>
                  <div class="col-xs-12 col-sm-5 col-md-5">
