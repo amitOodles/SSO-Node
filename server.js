@@ -57,7 +57,7 @@ app.get('/', function(req, res) {
     // res.redirect('/image');
 });
 
-	app.get('/webshot', function(req, res){
+	app.get('/webshot', function(req, res,callback){
     var ageWs = req.query.age;
 	var csesWs = req.query.cses;
 	var thpWs = req.query.thp;
@@ -73,30 +73,45 @@ app.get('/', function(req, res) {
 	// while (Date.now() < end);
 
 	function f1(){
-		webshot('http://localhost:3000/' + queryStringWs,'uploads/' + name, webshotOptions,function(err){
+		webshot('http://localhost:3000/' + queryStringWs,'uploads/' + name, webshotOptions,function(err,data){
     	// res.write("error saving");
+
+      if(err){
+        var resErr = new Error("Unable to generate SSO chart");
+        resErr.status = 400;
+        console.log("error occured",resErr);
+          callback(resErr);
+      }else{
+        var img = fs.readFileSync('uploads/' + name);
+    console.log('uploads/' + name);
+  fs.unlink('uploads/' + name);
+    res.writeHead(200, {'Content-Type': 'image/png'  });
+    res.end(img, 'binary');
+      }
+
+
     	});
 	}
 
 	f1();
 
-	function waitUntilFileExists(path, callback) {
-  	fs.exists(path, function(exists) {
-    if (!exists) {
-      waitUntilFileExists(path, callback);
-    } else {
-      setTimeout(callback,4000);
-    } 
-  	});
-	}
+	// function waitUntilFileExists(path, callback) {
+ //  	fs.exists(path, function(exists) {
+ //    if (!exists) {
+ //      waitUntilFileExists(path, callback);
+ //    } else {
+ //      setTimeout(callback,4000);
+ //    } 
+ //  	});
+	// }
     
-    waitUntilFileExists('uploads/' + name,function(){
-	var img = fs.readFileSync('uploads/' + name);
-    console.log('uploads/' + name);
-	fs.unlink('uploads/' + name);
-    res.writeHead(200, {'Content-Type': 'image/png'	 });
-    res.end(img, 'binary');
-	}); 
+ //    waitUntilFileExists('uploads/' + name,function(){
+	// var img = fs.readFileSync('uploads/' + name);
+ //    console.log('uploads/' + name);
+	// fs.unlink('uploads/' + name);
+ //    res.writeHead(200, {'Content-Type': 'image/png'	 });
+ //    res.end(img, 'binary');
+	// }); 
 
 	
 
