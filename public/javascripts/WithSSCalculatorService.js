@@ -1,7 +1,7 @@
 
 //var WithoutSSCalculatorService = angular.module('WithoutSSCalculatorService', [])
 app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',function(TaxRateCalculator,SGCRate,AgeCalculator){
-        this.getFinalAmount = function(age,fy,excludeSGC,minTakeHomePay,taxWithoutSS) {
+        this.getFinalAmount = function(age,fy,excludeSGC) {
             var datePension =  new Date;
             datePension.setYear(fy);
             datePension.setDate(2);
@@ -13,15 +13,7 @@ app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',f
 
             var totalEmployerContribution = SGCRate.calculateSGCRate(datePension)*excludeSGC;
 
-            // var validEmployerContribution;
-
             var upperSS;
-
-            // if(totalEmployerContribution >= 19307.80){
-            // validEmployerContribution = 19307.80;
-            // }else{
-            // validEmployerContribution = totalEmployerContribution;
-            // }
 
             upperSS = concessionalContributionCap - totalEmployerContribution;
 
@@ -29,13 +21,9 @@ app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',f
 
             var minTax = excludeSGC;
 
-            // var taxSaving = 0;
-
             var optimisedSS = 0;
 
             var optimisedTakeHomePay = 0;
-
-            var unattainableTHP = true;
 
             var finalAmountWithSS = 0;
 
@@ -44,7 +32,6 @@ app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',f
             var assessableAnnualIncome=grossAnnualIncomebeforeSGC-additionalConcessionalContribution;
             var personalTax= TaxRateCalculator.getTaxBase(assessableAnnualIncome)+TaxRateCalculator.getTaxRate(assessableAnnualIncome)*(assessableAnnualIncome-1-TaxRateCalculator.getLowerBoundValue(assessableAnnualIncome));
             var takehomePay=assessableAnnualIncome-personalTax;
-            if(takehomePay >= minTakeHomePay){
               var concessionalContribution=additionalConcessionalContribution+totalEmployerContribution;
               if(concessionalContribution>concessionalContributionCap){
                     var contributionTax=concessionalContribution*concessionalContributionTax+((concessionalContribution-concessionalContributionCap)*excessContributionTax);
@@ -60,18 +47,11 @@ app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',f
                 minTax = totalTaxPaid;
                 optimisedSS = additionalConcessionalContribution;
                 optimisedTakeHomePay = takehomePay;
-                unattainableTHP = false;
                 finalAmountWithSS = finalAmount;
               }
-            }
           }
 
-          if(unattainableTHP){
-          return [0,0,0,0,unattainableTHP];
-        }else{
-          return [optimisedTakeHomePay,minTax,finalAmountWithSS,optimisedSS,unattainableTHP];
-        }
-
+          return [optimisedTakeHomePay,minTax,finalAmountWithSS,optimisedSS,false];
 
       };
 
