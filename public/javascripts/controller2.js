@@ -36,7 +36,7 @@ app.controller("TTRController",['$scope','$timeout','AgeCalculator','TaxRateCalc
         $scope.taxWithoutSS = $scope.resultWithoutSS[1];
         $scope.finalAmountWithoutSS = $scope.resultWithoutSS[2];
         $scope.unattainableTHPS = $scope.resultWithoutSS[3];
-        $scope.resultWithSS = WithSSCalculator.getFinalAmount(ageq,fyq,csesq);
+        $scope.resultWithSS = WithSSCalculator.getFinalAmount(ageq,fyq,csesq,thpq);
         console.log("rwss",$scope.resultWithSS.toString());
         $scope.thpWithSS = $scope.resultWithSS[0];
         $scope.taxWithSS = $scope.resultWithSS[1];

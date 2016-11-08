@@ -1,7 +1,7 @@
 
 //var WithoutSSCalculatorService = angular.module('WithoutSSCalculatorService', [])
 app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',function(TaxRateCalculator,SGCRate,AgeCalculator){
-        this.getFinalAmount = function(age,fy,excludeSGC) {
+        this.getFinalAmount = function(age,fy,excludeSGC,minTakeHomePay) {
             var datePension =  new Date;
             datePension.setYear(fy);
             datePension.setDate(2);
@@ -32,6 +32,7 @@ app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',f
             var assessableAnnualIncome=grossAnnualIncomebeforeSGC-additionalConcessionalContribution;
             var personalTax= TaxRateCalculator.getTaxBase(assessableAnnualIncome)+TaxRateCalculator.getTaxRate(assessableAnnualIncome)*(assessableAnnualIncome-1-TaxRateCalculator.getLowerBoundValue(assessableAnnualIncome));
             var takehomePay=assessableAnnualIncome-personalTax;
+            if(takehomePay >= minTakeHomePay){
               var concessionalContribution=additionalConcessionalContribution+totalEmployerContribution;
               if(concessionalContribution>concessionalContributionCap){
                     var contributionTax=concessionalContribution*concessionalContributionTax+((concessionalContribution-concessionalContributionCap)*excessContributionTax);
@@ -49,6 +50,7 @@ app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',f
                 optimisedTakeHomePay = takehomePay;
                 finalAmountWithSS = finalAmount;
               }
+            }
           }
 
           return [optimisedTakeHomePay,minTax,finalAmountWithSS,optimisedSS,false];
