@@ -27,7 +27,7 @@ app.service('WithSSCalculator', ['TaxRateCalculator','SGCRate','AgeCalculator',f
 
             var finalAmountWithSS = 0;
 
-            for(ss=1;ss<=upperSS;ss++){
+            for(ss=100;ss<=upperSS;ss++){
             var additionalConcessionalContribution = ss;
             var assessableAnnualIncome=grossAnnualIncomebeforeSGC-additionalConcessionalContribution;
             var personalTax= TaxRateCalculator.getTaxBase(assessableAnnualIncome)+TaxRateCalculator.getTaxRate(assessableAnnualIncome)*(assessableAnnualIncome-1-TaxRateCalculator.getLowerBoundValue(assessableAnnualIncome));
