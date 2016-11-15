@@ -73,7 +73,7 @@ app.get('/', function(req, res) {
 	// while (Date.now() < end);
 
 	function f1(){
-		webshot('http://localhost:3000/' + queryStringWs,'uploads/' + name, webshotOptions,function(err,data){
+		webshot('http://180.151.85.194:6001/','uploads/' + name, webshotOptions,function(err,data){
     	// res.write("error saving");
 
       if(err){
