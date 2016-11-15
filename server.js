@@ -77,6 +77,7 @@ app.get('/', function(req, res) {
     	// res.write("error saving");
 
       if(err){
+        console.log("error is",err);
         var resErr = new Error("Unable to generate SSO chart");
         resErr.status = 400;
         console.log("error occured",resErr);
