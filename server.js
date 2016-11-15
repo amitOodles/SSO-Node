@@ -73,11 +73,11 @@ app.get('/', function(req, res) {
 	// while (Date.now() < end);
 
 	function f1(){
-		webshot('http://180.151.85.194:6001/','uploads/' + name, webshotOptions,function(err,data){
+		webshot('http://180.151.85.194:3000/' + queryStringWs,'uploads/' + name, webshotOptions,function(err,data){
     	// res.write("error saving");
 
       if(err){
-        console.log("error is",err);
+        console.log("error is",err)
         var resErr = new Error("Unable to generate SSO chart");
         resErr.status = 400;
         console.log("error occured",resErr);
