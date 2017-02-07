@@ -23,9 +23,12 @@ var webshotOptions = {
 };
 
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
-
-// app.use(bodyParser({uploadDir:'/home/amit/Downloads'}));
 
 
 app.set('view engine', 'ejs');
@@ -34,7 +37,6 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public/')));
 
 
-// viewed at http://localhost:8080
 app.get('/query', function(req, res) {
     var age = req.query.age;
     var cses = req.query.cses;
@@ -46,8 +48,7 @@ app.get('/query', function(req, res) {
         thp: thp,
         fy: fy
     });
-    // res.sendFile(path.join(__dirname + '/views/index.html'));
-    // res.redirect('/image');
+
 });
 
 
@@ -68,9 +69,7 @@ app.get('/webshot', function(req, res, callback) {
     var timeS = new Date;
     var name = timeS.getTime() + ".png";
 
-    // var end = Date.now() + 10000;
-    // console.log(end);
-    // while (Date.now() < end);
+
 
     function f1() {
         webshot('http://180.151.85.194:3000/' + queryStringWs, '../../calculators/incomeTaxCalculator/uploads/' + name, webshotOptions, function(err, data) {
@@ -96,24 +95,6 @@ app.get('/webshot', function(req, res, callback) {
 
     f1();
 
-    // function waitUntilFileExists(path, callback) {
-    //    fs.exists(path, function(exists) {
-    //    if (!exists) {
-    //      waitUntilFileExists(path, callback);
-    //    } else {
-    //      setTimeout(callback,4000);
-    //    } 
-    //    });
-    // }
-
-    //    waitUntilFileExists('uploads/' + name,function(){
-    // var img = fs.readFileSync('uploads/' + name);
-    //    console.log('uploads/' + name);
-    // fs.unlink('uploads/' + name);
-    //    res.writeHead(200, {'Content-Type': 'image/png'  });
-    //    res.end(img, 'binary');
-    // }); 
-
 
 
 });
@@ -127,6 +108,8 @@ app.get('/getImage', function(req, res) {
     res.end(img, 'binary');
 });
 
-// module.exports = router;
 
-app.listen(3000);
+
+app.listen(3000, function() {
+    console.log('listening on 3000');
+})
