@@ -85,7 +85,7 @@ app.get('/webshot', function(req, res, callback) {
             } else {
                 var img = fs.readFileSync('../../calculators/incomeTaxCalculator/uploads/' + name);
                 console.log('uploads/' + name);
-                fs.unlink('uploads/' + name);
+                //fs.unlink('uploads/' + name);
                 res.writeHead(200, { 'Content-Type': 'image/png' });
                 res.end(img, 'binary');
             }
