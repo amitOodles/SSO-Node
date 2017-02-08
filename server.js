@@ -72,7 +72,7 @@ app.get('/webshot', function(req, res, callback) {
 
 
     function f1() {
-        webshot('http://180.151.85.194:3000/' + queryStringWs, '../../calculators/incomeTaxCalculator/uploads/' + name, webshotOptions, function(err, data) {
+        webshot('http://180.151.85.194:3000/' + queryStringWs, 'uploads/' + name, webshotOptions, function(err, data) {
             // res.write("error saving");
 
             if (err) {
@@ -82,9 +82,9 @@ app.get('/webshot', function(req, res, callback) {
                 console.log("error occured", resErr);
                 callback(resErr);
             } else {
-                var img = fs.readFileSync('../../calculators/incomeTaxCalculator/uploads/' + name);
+                var img = fs.readFileSync('uploads/' + name);
                 console.log('uploads/' + name);
-                //fs.unlink('uploads/' + name);
+                fs.unlink('uploads/' + name);
                 res.writeHead(200, { 'Content-Type': 'image/png' });
                 res.end(img, 'binary');
             }
